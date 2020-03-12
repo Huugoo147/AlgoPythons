@@ -5,6 +5,8 @@ from math import *
 
 import matplotlib.pyplot as plt
 
+from AdvancedComplexManip import polaire_to_cartesion
+
 
 def init():
     plt.clf()
@@ -26,17 +28,20 @@ def show_points(z_list, color="red", size=5):
 array = [5 + 5j, 4 + 4j, 3 + 3j]
 
 
-# show_points(list,"blue",50)
+# show_points(array, "blue", 50)
+
 
 def get_circle(z0, r, n=100):
-    i = 0
     my_list = []
-    while i <= n:
-        k = i / n
-        z1 = (r * exp(2j * k * pi)) + z0
+    for k in range(n):
+        t = 2*pi*k/n
+        z1 = z0 + polaire_to_cartesion(r, t)
         my_list.append(z1)
-        i += 1
     return my_list
+
+
+# show_points(get_circle(1-1j, 1, 30))
+# show_points(get_circle(2, 5, 30))
 
 
 def draw_segment(z0, z1, n=50):
@@ -53,28 +58,28 @@ def translation(z_liste, k):
     new_list = []
     for z in z_liste:
         new_list.append(z + k)
-    show_points(new_list)
+    return new_list
 
 
 def homeothie(z_liste, v):
     new_list = []
     for z in z_liste:
         new_list.append(z * v)
-    show_points(new_list)
+    return new_list
 
 
 def rotation(z_liste, angle):
     new_list = []
     for z in z_liste:
         new_list.append(z * exp(angle * 1j))
-    show_points(new_list)
+    return new_list
 
 
 def symetrie(z_liste):
     new_list = []
     for z in z_liste:
         new_list.append(z.conjugate())
-    show_points(new_list)
+    return new_list
 
 
 def inversion(z_liste):
@@ -84,7 +89,7 @@ def inversion(z_liste):
             new_list.append(1 / z)
         except:
             pass
-    show_points(new_list)
+    return new_list
 
 
 def au_carre(z_liste):
@@ -100,6 +105,7 @@ z2 = z1 + 1
 z3 = z2 - 1 * 1j
 p = [z0, z1, z2, z3]
 centre = (2 + 2j)
+c = get_circle(centre, 1.0)
 
 
 def initialisation_presentation():
@@ -111,13 +117,12 @@ def initialisation_presentation():
 
 
 # initialisation_presentation()
-# p1 = translation(p,2-1j)
-# c1 = translation(c,2-1j)
-# plt.show()
+# p1 = translation(p, 2 - 1j)
+# #c1 = translation(c, 2 - 1j)
 
 # initialisation_presentation()
-# homeothie(p,1.5)
-# homeothie(c,1.5)
+# homeothie(p, 1.5)
+# homeothie(c, 1.5)
 # plt.show()
 
 # initialisation_presentation()
